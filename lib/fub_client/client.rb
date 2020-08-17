@@ -7,6 +7,8 @@ module FubClient
 
     attr_writer :api_key
     attr_reader :her_api
+    attr_accessor :x_system
+    attr_accessor :x_system_key
 
     def initialize
       init_her_api
