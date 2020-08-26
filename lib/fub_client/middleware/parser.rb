@@ -4,16 +4,21 @@ module FubClient
 
       def on_complete(env)
         original_json = MultiJson.load(env[:body])
-        json = original_json.deep_transform_keys{ |k| string_to_snakecase(k.to_s).to_sym }
+        if original_json.respond_to? 'deep_transform_keys'
+          json = original_json.deep_transform_keys{ |k| string_to_snakecase(k.to_s).to_sym }
+        else
+          json = {}
+        end
         metadata = json[:_metadata]
         if metadata.nil?
           result = json
         else
           result = json[string_to_snakecase(metadata[:collection]).to_sym]
         end
+        errors = json[:errors] || []
         env[:body] = {
           data: result,
-          errors: json[:errors],
+          errors: errors,
           metadata: metadata
         }
       end
