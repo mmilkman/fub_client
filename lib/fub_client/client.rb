@@ -38,6 +38,7 @@ module FubClient
       @her_api.setup url: self.api_uri.to_s do |c|
         # Request
         c.use FubClient::Middleware::Authentication
+        c.use FubClient::Middleware::RequestCleanup
         c.use Faraday::Request::UrlEncoded
 
         # Response
