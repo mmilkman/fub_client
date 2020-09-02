@@ -21,6 +21,7 @@ require "fub_client/action_plan"
 require "fub_client/em_event"
 require "fub_client/custom_field"
 require "fub_client/deal"
+require "fub_client/pipeline"
 
 module FubClient
   def self.root
